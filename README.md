@@ -1,6 +1,6 @@
 # Oligostan-Python
 
-A Python implementation of Oligostan for automated smiFISH (single-molecule fluorescence in situ hybridization) probe design with batch processing capabilities.
+A Python implementation of Oligostan for automated smiFISH (single-molecule fluorescence in situ hybridization) probe design with batch processing capabilities and removed dependency on RepeatMasker (substituted with NCBI Blast+ package's Dustmasker).
 
 ## Overview
 
