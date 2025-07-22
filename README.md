@@ -183,7 +183,7 @@ Contributions are welcome! Please:
 ### Development Setup
 
 ```
-git clone https://github.com/yourusername/oligostan-python.git
+git clone https://github.com/Guoming-Gao/oligostan-python.git
 cd oligostan-python
 pip install -r requirements.txt
 python test_oligostan.py  # Run validation tests
@@ -191,59 +191,8 @@ python test_oligostan.py  # Run validation tests
 
 ## Citation
 
-If you use Oligostan-Python in your research, please cite both the original method and this implementation:
+If you use Oligostan-Python in your research, please cite the original method
 
 **Original Method:**
-```
 Tsanov, Nikolay, Aubin Samacoits, Racha Chouaib, et al. "smiFISH and FISH-Quant – a Flexible Single RNA Detection Approach with Super-Resolution Capability." Nucleic Acids Research 44, no. 22 (2016): e165–e165. https://doi.org/10.1093/NAR/GKW784
-```
 
-**This Implementation:**
-```
-Oligostan-Python: A Python implementation of Oligostan for automated smiFISH probe design.
-GitHub: https://github.com/yourusername/oligostan-python
-```
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- **Original Oligostan developers** for creating the foundational algorithm and R implementation
-- **The smiFISH research community** for feedback and validation
-- **Guttman Laboratory** for testing and development support
-- **Contributors and beta testers** who helped improve the tool
-
-## Support
-
-For questions, issues, or feature requests:
-
-- 📧 **Issues**: Create an issue on GitHub
-- 📖 **Documentation**: See this README and inline code comments
-- 🔬 **Scientific Questions**: Contact the Guttman Laboratory
-- 💬 **Discussions**: Use GitHub Discussions for community support
-
-## Troubleshooting
-
-### Common Issues
-
-1. **ImportError with BioPython**: Ensure BioPython >= 1.79 is installed
-2. **File not found errors**: Check that FASTA files are in the correct directory
-3. **No probes generated**: Try adjusting filter parameters in `config.py`
-4. **GUI not appearing**: Ensure tkinter is properly installed (usually included with Python)
-
-### System Requirements
-
-- **Memory**: 2GB RAM minimum, 4GB recommended
-- **Disk Space**: 100MB for installation, additional space for output files
-- **Operating Systems**: Windows 10+, macOS 10.12+, Linux (Ubuntu 18.04+)
-
----
-
-**Note**: This tool is designed for research use in molecular biology and biophysics. Please validate results for your specific experimental conditions and target sequences.
-
-## Version History
-
-- **v1.0.0** (2025-07): Initial release with complete R script compatibility
-- Future releases will include enhanced batch processing and additional output formats
