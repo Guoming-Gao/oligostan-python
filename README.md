@@ -111,7 +111,11 @@ DEFAULT_SETTINGS = {
 
 ### PNAS Filter Rules
 
-1. **Rule 1**: Adenine content 50% cytosine
+1. **Rule 1**: Adenine content < 28%
+2. **Rule 2**: No AAAA runs (prevents secondary structures)
+3. **Rule 3**: Cytosine content between 22-28%
+4. **Rule 4**: No CCCC runs (prevents secondary structures)
+5. **Rule 5**: No 6-nucleotide windows with >50% cytosine
 
 ## Output Format
 
