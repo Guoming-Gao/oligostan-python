@@ -1,10 +1,11 @@
-# oligostan_core.py - FIXED START POSITION CALCULATION
+# oligostan_core.py - UPDATED with dustmasker integration
 import pandas as pd
 import numpy as np
 from thermodynamics import dg_calc_rna_37, dg37_score_calc
 from filters import (
     is_ok_4_pnas_filter,
     is_ok_4_gc_filter,
+    dustmasker_filter,
     is_it_ok_4_a_comp,
     is_it_ok_4_a_stack,
     is_it_ok_4_c_comp,
@@ -154,11 +155,26 @@ def optimize_dg37_selection(sequences, dg37_range=None, **params):
     return params.get("fixed_dg37_value", -32.0)
 
 
-def process_probes_for_output(probes, seq_data, dg37_value):
-    """Process probes exactly like R script - FIXED START POSITION"""
+def process_probes_for_output(probes, seq_data, dg37_value, **params):
+    """Process probes exactly like R script - UPDATED with optional dustmasker"""
     processed_probes = []
 
-    for probe in probes:
+    # RESTORED: Apply dustmasker filter if enabled
+    use_dustmasker = params.get("use_dustmasker", False)
+    max_masked_percent = params.get("max_masked_percent", 0.1)
+
+    if use_dustmasker and probes:
+        # Extract sequences for dustmasker
+        probe_sequences = [probe[3] for probe in probes]
+        dustmasker_results, masked_percentages = dustmasker_filter(
+            probe_sequences, max_masked_percent
+        )
+    else:
+        # Default: pass all probes (MaskedFilter <- FALSE behavior)
+        dustmasker_results = [True] * len(probes) if probes else []
+        masked_percentages = [0.0] * len(probes) if probes else []
+
+    for i, probe in enumerate(probes):
         probe_size, score, position, sequence = probe
 
         # Ensure sequence is uppercase
@@ -197,12 +213,18 @@ def process_probes_for_output(probes, seq_data, dg37_value):
             else 0
         )
 
+        # RESTORED: dustmasker filter results
+        dustmasker_pass = (
+            1 if (i < len(dustmasker_results) and dustmasker_results[i]) else 0
+        )
+        repeat_masker_pc = masked_percentages[i] if i < len(masked_percentages) else 0.0
+
         # PNAS sum
         nb_of_pnas = (
             a_comp_pass + a_stack_pass + c_comp_pass + c_stack_pass + c_spec_pass
         )
 
-        # Format exactly like R output (dGOpt as number, not string)
+        # Format exactly like R output
         probe_info = {
             "dGOpt": dg37_value,  # NUMBER, not string
             "ProbesNames": seq_data["name"],  # Now uses filename base
@@ -221,6 +243,8 @@ def process_probes_for_output(probes, seq_data, dg37_value):
             "cSpecStackFilter": c_spec_pass,
             "NbOfPNAS": nb_of_pnas,
             "PNASFilter": pnas_filter_pass,
+            "MaskedFilter": dustmasker_pass,  # RESTORED: dustmasker filter result
+            "RepeatMaskerPC": repeat_masker_pc,  # RESTORED: masked percentage
             "InsideUTR": 0,
             "HybFlpX": sequence + FLAP_SEQUENCES["X"],
             "HybFlpY": sequence + FLAP_SEQUENCES["Y"],

@@ -7,12 +7,14 @@ DEFAULT_SETTINGS = {
     "distance_min_inter_sonde": 2,
     "min_gc": 0.4,
     "max_gc": 0.6,
-    "max_masked_percent": 0.1,
+    "max_masked_percent": 0.1,  # For dustmasker filter
     "min_probe_per_transcript": 0,
     "pnas_filter_option": [1, 2, 4],
     "salt_conc": 0.115,
     # SIMPLIFIED: Use fixed dG37 value
     "fixed_dg37_value": -32.0,  # Always use -32 like R script behavior
+    # RESTORED: Optional dustmasker filter (matches R script's MaskedFilter)
+    "use_dustmasker": True,  # Default FALSE (matching R script MaskedFilter <- FALSE)
 }
 
 # FLAP sequences - exact from R script

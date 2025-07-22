@@ -1,4 +1,4 @@
-# test_oligostan.py - SIMPLIFIED VERSION
+# test_oligostan.py - UPDATED to include dustmasker parameters
 import sys
 import os
 import pandas as pd
@@ -20,6 +20,12 @@ def test_with_sample_data(fasta_file):
 
     print("=== Testing Oligostan Python Implementation (SIMPLIFIED) ===")
     print(f"Input file: {fasta_file}")
+
+    # Show dustmasker status
+    if DEFAULT_SETTINGS.get("use_dustmasker", False):
+        print("🔍 dustmasker filter: ENABLED")
+    else:
+        print("🔍 dustmasker filter: DISABLED (default)")
 
     # Read the FASTA file from current directory
     fasta_path = os.path.join(os.path.dirname(__file__), fasta_file)
@@ -61,7 +67,10 @@ def test_with_sample_data(fasta_file):
 
         if probes:
             print(f"  Found {len(probes)} probes")
-            processed_probes = process_probes_for_output(probes, seq_data, optimal_dg37)
+            # UPDATED: Pass all parameters including dustmasker settings
+            processed_probes = process_probes_for_output(
+                probes, seq_data, optimal_dg37, **DEFAULT_SETTINGS
+            )
             all_probes_data.extend(processed_probes)
 
             # Print probes for comparison
@@ -86,7 +95,7 @@ def test_with_sample_data(fasta_file):
         # Compare with expected R output
         print("\n=== Comparison with R Script Results ===")
         expected_sequences = [
-            "AAAACCACCTTCGTGATCATGGTATCTCC",  # From R output
+            "AAAACCACCTTCGTGATCATGGTATCTCC",
             "GAGTGCAATGGATAAGCCTCGCCCTG",
             "TTTGGGGAAATCGCAGGGGTCAGCACATC",
             "CTACCACAAATTATGCAGTCGAGTTTCCCA",
