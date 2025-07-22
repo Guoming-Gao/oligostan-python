@@ -1,4 +1,4 @@
-# Oligostan_Python
+# Oligostan-Python
 
 A Python implementation of Oligostan for automated smiFISH (single-molecule fluorescence in situ hybridization) probe design with batch processing capabilities.
 
@@ -76,7 +76,7 @@ Expected output: 5 probes matching the original R script results exactly.
 ## Project Structure
 
 ```
-oligostan_python/
+oligostan-python/
 ├── main.py                 # GUI entry point and batch processing
 ├── oligostan_core.py       # Core probe design algorithms
 ├── thermodynamics.py       # Delta G calculations (nearest-neighbor model)
