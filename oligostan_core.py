@@ -227,7 +227,7 @@ def process_probes_for_output(probes, seq_data, dg37_value, **params):
         # Format exactly like R output
         probe_info = {
             "dGOpt": dg37_value,  # NUMBER, not string
-            "ProbesNames": seq_data["name"],  # Now uses filename base
+            "ProbesNames": seq_data["name"] + f" probe {i+1}",
             "theStartPos": the_start_pos,  # FIXED: Now matches R positions
             "theEndPos": the_end_pos,
             "ProbeSize": probe_size,
